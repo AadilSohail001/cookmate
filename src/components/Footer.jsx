@@ -66,7 +66,7 @@ export function Footer() {
               Built with <Heart className="inline h-3.5 w-3.5 text-red-500" /> using Next.js
             </p>
             <a
-              href="https://github.com"
+              href="https://github.com/AadilSohail001/cookmate.git"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-1 text-sm text-zinc-500 transition-colors hover:text-orange-500 dark:text-zinc-400"
