@@ -2,7 +2,7 @@ export const recipes = [
   {
     id: "1",
     title: "Classic Margherita Pizza",
-    image: "https://images.unsplash.com/photo-1574071318508-1cdbab80d002?w=600",
+    image: "https://images.unsplash.com/photo-1574071318508-1cdbab80d002?w=400",
     category: "dinner",
     cookingTime: 30,
     difficulty: "Easy",
@@ -38,7 +38,7 @@ export const recipes = [
   {
     id: "2",
     title: "Avocado Toast with Egg",
-    image: "https://images.unsplash.com/photo-1525351484163-7529414344d8?w=600",
+    image: "https://images.unsplash.com/photo-1525351484163-7529414344d8?w=400",
     category: "breakfast",
     cookingTime: 15,
     difficulty: "Easy",
@@ -70,7 +70,7 @@ export const recipes = [
   {
     id: "3",
     title: "Grilled Salmon with Asparagus",
-    image: "https://images.unsplash.com/photo-1467003909585-2f8a72700288?w=600",
+    image: "https://images.unsplash.com/photo-1467003909585-2f8a72700288?w=400",
     category: "dinner",
     cookingTime: 25,
     difficulty: "Medium",
@@ -104,7 +104,7 @@ export const recipes = [
   {
     id: "4",
     title: "Chocolate Lava Cake",
-    image: "https://images.unsplash.com/photo-1624353365286-3f8d62daad51?w=600",
+    image: "https://images.unsplash.com/photo-1624353365286-3f8d62daad51?w=400",
     category: "dessert",
     cookingTime: 20,
     difficulty: "Medium",
@@ -138,7 +138,7 @@ export const recipes = [
   {
     id: "5",
     title: "Caesar Salad",
-    image: "https://images.unsplash.com/photo-1546793665-c74683f339c1?w=600",
+    image: "https://images.unsplash.com/photo-1546793665-c74683f339c1?w=400",
     category: "lunch",
     cookingTime: 15,
     difficulty: "Easy",
@@ -168,7 +168,7 @@ export const recipes = [
   {
     id: "6",
     title: "Vegetable Stir Fry",
-    image: "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=600",
+    image: "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=400",
     category: "vegetarian",
     cookingTime: 20,
     difficulty: "Easy",
@@ -203,7 +203,7 @@ export const recipes = [
   {
     id: "7",
     title: "Berry Smoothie Bowl",
-    image: "https://images.unsplash.com/photo-1590301157890-4810ed352733?w=600",
+    image: "https://images.unsplash.com/photo-1590301157890-4810ed352733?w=400",
     category: "breakfast",
     cookingTime: 10,
     difficulty: "Easy",
@@ -233,7 +233,7 @@ export const recipes = [
   {
     id: "8",
     title: "Spaghetti Carbonara",
-    image: "https://images.unsplash.com/photo-1612874742237-6526221588e3?w=600",
+    image: "https://images.unsplash.com/photo-1612874742237-6526221588e3?w=400",
     category: "dinner",
     cookingTime: 25,
     difficulty: "Medium",
@@ -266,7 +266,7 @@ export const recipes = [
   {
     id: "9",
     title: "Mango Lassi",
-    image: "https://images.unsplash.com/photo-1544145945-f90425340c7e?w=600",
+    image: "https://images.unsplash.com/photo-1544145945-f90425340c7e?w=400",
     category: "drinks",
     cookingTime: 5,
     difficulty: "Easy",
@@ -295,7 +295,7 @@ export const recipes = [
   {
     id: "10",
     title: "Lemon Garlic Shrimp",
-    image: "https://images.unsplash.com/photo-1559847844-5315695dadae?w=600",
+    image: "https://images.unsplash.com/photo-1559847844-5315695dadae?w=400",
     category: "seafood",
     cookingTime: 15,
     difficulty: "Easy",
@@ -327,7 +327,7 @@ export const recipes = [
   {
     id: "11",
     title: "Tomato Basil Soup",
-    image: "https://images.unsplash.com/photo-1547592166-23ac45744acd?w=600",
+    image: "https://images.unsplash.com/photo-1547592166-23ac45744acd?w=400",
     category: "soup",
     cookingTime: 35,
     difficulty: "Easy",
@@ -361,7 +361,7 @@ export const recipes = [
   {
     id: "12",
     title: "Pancake Stack",
-    image: "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=600",
+    image: "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=400",
     category: "breakfast",
     cookingTime: 20,
     difficulty: "Easy",
@@ -394,7 +394,7 @@ export const recipes = [
   {
     id: "13",
     title: "Chicken Tikka Masala",
-    image: "https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=600",
+    image: "https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=400",
     category: "dinner",
     cookingTime: 45,
     difficulty: "Medium",
@@ -425,7 +425,7 @@ export const recipes = [
   {
     id: "14",
     title: "Caprese Panini",
-    image: "https://images.unsplash.com/photo-1713164394509-79e8c579c860?w=600",
+    image: "https://images.unsplash.com/photo-1713164394509-79e8c579c860?w=400",
     category: "lunch",
     cookingTime: 10,
     difficulty: "Easy",
@@ -453,7 +453,7 @@ export const recipes = [
   {
     id: "15",
     title: "French Onion Soup",
-    image: "https://images.unsplash.com/photo-1547592166-23ac45744acd?w=600",
+    image: "https://images.unsplash.com/photo-1547592166-23ac45744acd?w=400",
     category: "soup",
     cookingTime: 50,
     difficulty: "Medium",
@@ -481,7 +481,7 @@ export const recipes = [
   {
     id: "16",
     title: "Greek Salad",
-    image: "https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?w=600",
+    image: "https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?w=400",
     category: "lunch",
     cookingTime: 10,
     difficulty: "Easy",
@@ -509,7 +509,7 @@ export const recipes = [
   {
     id: "17",
     title: "Banana Oatmeal Pancakes",
-    image: "https://images.unsplash.com/photo-1550547660-d9450f859349?w=600",
+    image: "https://images.unsplash.com/photo-1550547660-d9450f859349?w=400",
     category: "breakfast",
     cookingTime: 15,
     difficulty: "Easy",
@@ -537,7 +537,7 @@ export const recipes = [
   {
     id: "18",
     title: "Iced Matcha Latte",
-    image: "https://images.unsplash.com/photo-1536256263959-770b48d82b0a?w=600",
+    image: "https://images.unsplash.com/photo-1536256263959-770b48d82b0a?w=400",
     category: "drinks",
     cookingTime: 5,
     difficulty: "Easy",
@@ -563,7 +563,7 @@ export const recipes = [
   {
     id: "19",
     title: "Stuffed Bell Peppers",
-    image: "https://images.unsplash.com/photo-1649434150059-13fee33e1de4?w=600",
+    image: "https://images.unsplash.com/photo-1649434150059-13fee33e1de4?w=400",
     category: "vegetarian",
     cookingTime: 40,
     difficulty: "Medium",
@@ -593,7 +593,7 @@ export const recipes = [
   {
     id: "20",
     title: "Garlic Butter Shrimp Pasta",
-    image: "https://images.unsplash.com/photo-1563379926898-05f4575a45d8?w=600",
+    image: "https://images.unsplash.com/photo-1563379926898-05f4575a45d8?w=400",
     category: "seafood",
     cookingTime: 25,
     difficulty: "Medium",
@@ -624,7 +624,7 @@ export const recipes = [
   {
     id: "21",
     title: "Tiramisu",
-    image: "https://images.unsplash.com/photo-1571877227200-a0d98ea607e9?w=600",
+    image: "https://images.unsplash.com/photo-1571877227200-a0d98ea607e9?w=400",
     category: "dessert",
     cookingTime: 30,
     difficulty: "Hard",
@@ -656,7 +656,7 @@ export const recipes = [
   {
     id: "22",
     title: "BBQ Chicken Wrap",
-    image: "https://images.unsplash.com/photo-1626700051175-6818013e1d4f?w=600",
+    image: "https://images.unsplash.com/photo-1626700051175-6818013e1d4f?w=400",
     category: "lunch",
     cookingTime: 20,
     difficulty: "Easy",
@@ -683,7 +683,7 @@ export const recipes = [
   {
     id: "23",
     title: "Coconut Curry Lentil Soup",
-    image: "https://images.unsplash.com/photo-1547592166-23ac45744acd?w=600",
+    image: "https://images.unsplash.com/photo-1547592166-23ac45744acd?w=400",
     category: "soup",
     cookingTime: 35,
     difficulty: "Easy",
@@ -714,7 +714,7 @@ export const recipes = [
   {
     id: "24",
     title: "Chocolate Chip Cookies",
-    image: "https://images.unsplash.com/photo-1499636136210-6f4ee915583e?w=600",
+    image: "https://images.unsplash.com/photo-1499636136210-6f4ee915583e?w=400",
     category: "dessert",
     cookingTime: 25,
     difficulty: "Easy",

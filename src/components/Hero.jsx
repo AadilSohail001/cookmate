@@ -6,7 +6,7 @@ export function Hero() {
   return (
     <section className="relative flex min-h-[500px] items-center justify-center bg-gradient-to-br from-orange-500 to-orange-700 px-4">
       <Image
-        src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=1920"
+        src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=1920&q=75"
         alt=""
         fill
         priority

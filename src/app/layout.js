@@ -16,12 +16,23 @@ const geistMono = Geist_Mono({
 export const metadata = {
   title: "CookMate - Discover, Cook, and Share Delicious Recipes",
   description: "Your ultimate recipe companion. Find thousands of recipes, save your favorites, and cook with confidence.",
+  icons: {
+    icon: "/favicon.svg",
+  },
 };
 
 export default function RootLayout({ children }) {
   return (
     <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`} suppressHydrationWarning>
       <head>
+        <link rel="preconnect" href="https://images.unsplash.com" />
+        <link rel="dns-prefetch" href="https://images.unsplash.com" />
+        <link
+          rel="preload"
+          href="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=1920&q=75"
+          as="image"
+          fetchpriority="high"
+        />
         <script
           dangerouslySetInnerHTML={{
             __html: `

@@ -17,6 +17,7 @@ export default async function RecipeDetailPage({ params }) {
   if (!recipe) notFound();
 
   const { title, image, category, cookingTime, difficulty, servings, ingredients, instructions, nutrition, description, rating } = recipe;
+  const detailImage = image.replace("?w=400", "?w=800");
 
   return (
     <div className="mx-auto max-w-4xl px-4 py-12 sm:px-6 lg:px-8">
@@ -25,7 +26,7 @@ export default async function RecipeDetailPage({ params }) {
       </Link>
 
       <div className="relative mb-8 h-64 overflow-hidden rounded-xl sm:h-80 lg:h-96">
-        <Image src={image} alt={title} fill className="object-cover" sizes="(max-width: 1024px) 100vw, 900px" priority />
+        <Image src={detailImage} alt={title} fill className="object-cover" sizes="(max-width: 1024px) 100vw, 900px" priority />
       </div>
 
       <div className="mb-8">
