@@ -8,6 +8,7 @@ export const navLinks = [
   { href: "/", label: "Home" },
   { href: "/recipes", label: "Recipes" },
   { href: "/categories", label: "Categories" },
+  { href: "/assistant", label: "AI Chef" },
   { href: "/favorites", label: "Favorites" },
   { href: "/about", label: "About" },
   { href: "/contact", label: "Contact" },
