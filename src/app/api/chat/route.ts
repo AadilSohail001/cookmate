@@ -154,9 +154,33 @@ export async function POST(req: NextRequest) {
     const { messages } = await req.json();
     const encoder = new TextEncoder();
 
+    const sabotage = process.env.NODE_ENV !== "production" ? req.nextUrl.searchParams.get("sabotage") : null;
+
+    if (sabotage === "slow") {
+      await new Promise((resolve) => setTimeout(resolve, 3000));
+    }
+    if (sabotage === "error") {
+      throw new Error("Simulated test failure for FE-08 sabotage testing");
+    }
+    if (sabotage === "rate-limit") {
+      return new Response(JSON.stringify({ error: "Rate limit exceeded for testing" }), {
+        status: 429,
+        headers: { "Content-Type": "application/json" },
+      });
+    }
+
     const stream = new ReadableStream({
       async start(controller) {
         try {
+          if (sabotage === "midstream") {
+            controller.enqueue(encoder.encode("Here's a recipe idea for you: a simple tomato omelette — but..."));
+            await new Promise((resolve) => setTimeout(resolve, 1200));
+            controller.error(new Error("Simulated mid-stream connection failure for testing"));
+            return;
+          }
+          if (sabotage === "empty") {
+            return;
+          }
           let conversation = [
             { role: "system", content: SYSTEM_PROMPT },
             ...messages.map((m: { role: string; content: string }) => ({

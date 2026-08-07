@@ -1,0 +1,33 @@
+
+> cookmate@0.1.0 dev
+> next dev
+
+▲ Next.js 16.2.10 (Turbopack)
+- Local:         http://localhost:3000
+- Network:       http://192.168.1.104:3000
+- Environments: .env.local
+✓ Ready in 1047ms
+
+ POST /api/chat?sabotage=error 500 in 361ms (next.js: 334ms, application-code: 27ms)
+ POST /api/chat?sabotage=rate-limit 500 in 12ms (next.js: 5ms, application-code: 7ms)
+ POST /api/chat?sabotage=midstream 500 in 10ms (next.js: 4ms, application-code: 6ms)
+ POST /api/chat?sabotage=rate-limit 429 in 9ms (next.js: 3ms, application-code: 6ms)
+Invalid DOM property `fetchpriority`. Did you mean `fetchPriority`?
+ GET / 200 in 661ms (next.js: 187ms, application-code: 475ms)
+ GET /assistant 200 in 102ms (next.js: 78ms, application-code: 23ms)
+ POST /api/chat 200 in 1593ms (next.js: 6ms, application-code: 1587ms)
+ POST /api/chat 200 in 1588ms (next.js: 5ms, application-code: 1583ms)
+⨯ Error: failed to pipe response
+    at ignore-listed frames {
+  [cause]: Error: Simulated mid-stream connection failure for testing
+      at Object.start (src\app\api\chat\route.ts:178:30)
+    176 |             controller.enqueue(encoder.encode("Here's a recipe idea for you: a simple tom...
+    177 |             await new Promise((resolve) => setTimeout(resolve, 1200));
+  > 178 |             controller.error(new Error("Simulated mid-stream connection failure for testi...
+        |                              ^
+    179 |             return;
+    180 |           }
+    181 |           if (sabotage === "empty") {
+}
+ POST /api/chat?sabotage=midstream 500 in 1445ms (next.js: 3ms, application-code: 1443ms)
+ POST /api/chat 200 in 7.3s (next.js: 5ms, application-code: 7.3s)

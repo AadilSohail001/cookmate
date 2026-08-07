@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { Clock, ChefHat, Star, Target, SearchX } from "lucide-react";
+import { Clock, ChefHat, Star, Target, SearchX, UtensilsCrossed } from "lucide-react";
 
 function RecipeMatchCard({ recipe }) {
   return (
@@ -55,12 +55,25 @@ export function RecipeToolResult({ data }) {
       <div className="flex items-start gap-3 px-4 py-3">
         <div className="flex-1 rounded-xl border border-zinc-200 bg-zinc-50 px-4 py-6 text-center dark:border-zinc-800 dark:bg-zinc-800/50">
           <SearchX className="mx-auto h-8 w-8 text-zinc-400" />
-          <p className="mt-2 text-sm font-medium text-zinc-700 dark:text-zinc-200">
-            No matching recipes found
+          <p className="mt-2 text-sm font-semibold text-zinc-700 dark:text-zinc-200">
+            No matching recipes
           </p>
-          <p className="mt-1 text-xs text-zinc-500 dark:text-zinc-400">
-            Try different ingredients or ask the AI chef for ideas.
+          <p className="mx-auto mt-1 max-w-xs text-xs text-zinc-500 dark:text-zinc-400">
+            Try adding different ingredients or browse the recipe collection.
           </p>
+          <div className="mt-4 flex flex-wrap items-center justify-center gap-2">
+            <Link
+              href="/recipes"
+              className="inline-flex items-center gap-1.5 rounded-lg bg-orange-500 px-3.5 py-2 text-xs font-medium text-white transition-colors hover:bg-orange-600"
+            >
+              <UtensilsCrossed className="h-3.5 w-3.5" />
+              Browse recipes
+            </Link>
+            <span className="text-xs text-zinc-400 dark:text-zinc-500">or</span>
+            <span className="rounded-lg border border-zinc-300 px-3.5 py-2 text-xs font-medium text-zinc-600 dark:border-zinc-700 dark:text-zinc-300">
+              Try different ingredients
+            </span>
+          </div>
         </div>
       </div>
     );
