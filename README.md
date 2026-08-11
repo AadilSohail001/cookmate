@@ -123,6 +123,8 @@ The chat UI renders four distinct states while the tool runs:
 #### Matching & Scoring
 
 - Ingredient queries are cleaned (stopwords, quantities, units stripped) and stemmed.
+- Recipe titles are normalized, and title tokens participate in matching.
+- Ingredient matches use exact equality between stemmed tokens.
 - Recipes score with two-way coverage: `50 * userCoverage + 50 * recipeCoverage`.
 - `MIN_SCORE = 30`, `MAX_RESULTS = 8`, results sorted by score then cooking time.
 
