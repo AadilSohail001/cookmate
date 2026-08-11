@@ -1,0 +1,23 @@
+▲ Next.js 16.2.10 (Turbopack)
+- Local:         http://localhost:3000
+- Network:       http://192.168.1.106:3000
+- Environments: .env.local
+✓ Ready in 558ms
+
+ GET / 200 in 545ms (next.js: 202ms, application-code: 342ms)
+ POST /api/chat 200 in 2.6s (next.js: 120ms, application-code: 2.5s)
+ POST /api/chat 200 in 5.5s (next.js: 2ms, application-code: 5.5s)
+⨯ ./node_modules/next/node_modules/postcss/lib/input.js:6:18
+Module not found: Can't resolve 'nanoid/non-secure'
+
+
+Import trace:
+  postcss:
+    ./node_modules/next/node_modules/postcss/lib/input.js
+    ./node_modules/next/node_modules/postcss/lib/postcss.js
+    ./node_modules/next/node_modules/postcss/lib/postcss.mjs
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+✓ Compiled in 1239ms

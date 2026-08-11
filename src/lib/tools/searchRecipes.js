@@ -39,14 +39,15 @@ export function searchRecipes(input) {
       const recipeTokens = recipe.ingredients.map((ing) =>
         clean(ing).split(" ").filter((w) => w.length >= 3).map(stem)
       );
+      recipeTokens.push(
+        clean(recipe.title).split(" ").filter((w) => w.length >= 3).map(stem)
+      );
 
       let matched = 0;
       const matchedIngredients = [];
       for (const queryWords of query) {
         const hit = recipeTokens.some((recipeWords) =>
-          queryWords.some((qw) =>
-            recipeWords.some((rw) => rw.includes(qw) || qw.includes(rw))
-          )
+          queryWords.some((qw) => recipeWords.some((rw) => rw === qw))
         );
         if (hit) {
           matched++;
