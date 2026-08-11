@@ -1,0 +1,41 @@
+
+> cookmate@0.1.0 dev
+> next dev
+
+▲ Next.js 16.2.10 (Turbopack)
+- Local:         http://localhost:3000
+- Network:       http://192.168.1.102:3000
+- Environments: .env.local
+✓ Ready in 529ms
+
+ POST /api/chat 200 in 7.5s (next.js: 253ms, application-code: 7.2s)
+Invalid DOM property `fetchpriority`. Did you mean `fetchPriority`?
+ GET /assistant 200 in 452ms (next.js: 130ms, application-code: 322ms)
+✓ Compiled in 129ms
+ GET /assistant 200 in 177ms (next.js: 62ms, application-code: 114ms)
+ POST /api/chat 200 in 6.9s (next.js: 105ms, application-code: 6.8s)
+ GET / 200 in 337ms (next.js: 128ms, application-code: 209ms)
+ GET /assistant 200 in 96ms (next.js: 63ms, application-code: 33ms)
+ POST /api/chat 200 in 3.0s (next.js: 3ms, application-code: 3.0s)
+✓ Compiled in 229ms
+ GET /assistant 200 in 188ms (next.js: 111ms, application-code: 77ms)
+ GET /assistant 200 in 178ms (next.js: 7ms, application-code: 171ms)
+ POST /api/chat 200 in 2.6s (next.js: 152ms, application-code: 2.5s)
+ GET /assistant 200 in 80ms (next.js: 5ms, application-code: 75ms)
+ POST /api/chat 200 in 2.8s (next.js: 3ms, application-code: 2.8s)
+ POST /api/chat 200 in 3.0s (next.js: 4ms, application-code: 3.0s)
+ POST /api/chat 200 in 3.1s (next.js: 3ms, application-code: 3.1s)
+ GET /assistant 200 in 74ms (next.js: 3ms, application-code: 71ms)
+ POST /api/chat 200 in 3.9s (next.js: 2ms, application-code: 3.9s)
+ GET /assistant 200 in 65ms (next.js: 3ms, application-code: 62ms)
+ POST /api/chat 200 in 2.8s (next.js: 2ms, application-code: 2.8s)
+ GET /assistant 200 in 167ms (next.js: 104ms, application-code: 63ms)
+ GET /assistant 200 in 147ms (next.js: 95ms, application-code: 52ms)
+ POST /api/chat 200 in 5.1s (next.js: 87ms, application-code: 5.0s)
+ POST /api/chat 200 in 5.6s (next.js: 3ms, application-code: 5.6s)
+ GET /assistant 200 in 331ms (next.js: 6ms, application-code: 326ms)
+ POST /api/chat 200 in 4.7s (next.js: 3ms, application-code: 4.7s)
+ GET /assistant 200 in 162ms (next.js: 106ms, application-code: 57ms)
+ POST /api/chat 200 in 3.3s (next.js: 79ms, application-code: 3.2s)
+ GET /assistant 200 in 203ms (next.js: 3ms, application-code: 200ms)
+ POST /api/chat 200 in 2.6s (next.js: 3ms, application-code: 2.6s)

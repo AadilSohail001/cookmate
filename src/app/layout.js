@@ -31,7 +31,7 @@ export default function RootLayout({ children }) {
           rel="preload"
           href="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=1920&q=75"
           as="image"
-          fetchpriority="high"
+          fetchPriority="high"
         />
         <script
           dangerouslySetInnerHTML={{

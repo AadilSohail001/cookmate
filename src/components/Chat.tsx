@@ -39,10 +39,7 @@ interface ChatError {
   detail?: string;
 }
 
-const TOOL_MARKER_RE = /<<<([A-Z_]+)>>>/;
-const STRIP_TOOL_RE = /<<<[A-Z_]+>>>[^<]*/g;
-
-const cleanText = (raw: string) => raw.replace(STRIP_TOOL_RE, "").trim();
+const END_MARKER = "<<<END>>>";
 
 export function Chat() {
   const [messages, setMessages] = useState<ChatEntry[]>([]);
@@ -55,6 +52,26 @@ export function Chat() {
   const abortRef = useRef<AbortController | null>(null);
   const bottomRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
+  const streamingRef = useRef("");
+  const pendingBufferRef = useRef("");
+
+  const appendText = (text: string) => {
+    streamingRef.current += text;
+    setStreamingContent(streamingRef.current);
+  };
+
+  const clearText = () => {
+    streamingRef.current = "";
+    setStreamingContent("");
+  };
+
+  const flushPendingText = () => {
+    const text = streamingRef.current.trim();
+    clearText();
+    if (text) {
+      setMessages((prev) => [...prev, { role: "assistant", content: text }]);
+    }
+  };
 
   const scrollToBottom = useCallback(() => {
     if (!manualScroll) {
@@ -76,6 +93,7 @@ export function Chat() {
 
   const handleToolEvent = (type: string, payload: string) => {
     if (type === "TOOL_STREAM") {
+      flushPendingText();
       setToolState({ state: "streaming", args: payload });
     } else if (type === "TOOL_RUN") {
       let args: string[] = [];
@@ -102,23 +120,68 @@ export function Chat() {
     }
   };
 
+  // Process streamed raw text, handling markers that may span chunk boundaries.
   const parseIncoming = (raw: string) => {
-    let remaining = raw;
-    while (remaining.length > 0) {
-      const match = remaining.match(TOOL_MARKER_RE);
-      if (!match) {
-        setStreamingContent((prev) => prev + remaining);
+    let buffer = pendingBufferRef.current + raw;
+    pendingBufferRef.current = "";
+    let scan = 0;
+
+    while (true) {
+      const markerIdx = buffer.indexOf("<<<", scan);
+      if (markerIdx === -1) {
+        const tail = buffer.slice(scan);
+        if (!tail) return;
+        let keep = 0;
+        for (let i = tail.length - 1; i >= 0 && tail[i] === "<" && keep < 2; i--) keep++;
+        const flushLen = tail.length - keep;
+        if (flushLen > 0) appendText(tail.slice(0, flushLen));
+        pendingBufferRef.current = keep > 0 ? tail.slice(flushLen) : "";
         return;
       }
-      const before = remaining.slice(0, match.index);
-      if (before) setStreamingContent((prev) => prev + before);
 
-      const rest = remaining.slice((match.index ?? 0) + match[0].length);
-      const next = rest.match(TOOL_MARKER_RE);
-      const payload = next ? rest.slice(0, next.index) : rest;
-      handleToolEvent(match[1], payload);
-      remaining = next ? rest.slice(next.index ?? 0) : "";
+      const text = buffer.slice(scan, markerIdx);
+      if (text) appendText(text);
+
+      const markerEnd = buffer.indexOf(">>>", markerIdx + 3);
+      if (markerEnd === -1) {
+        pendingBufferRef.current = buffer.slice(markerIdx);
+        return;
+      }
+
+      const type = buffer.slice(markerIdx + 3, markerEnd);
+      if (type === "END") {
+        scan = markerEnd + 3;
+        continue;
+      }
+
+      const endIdx = buffer.indexOf(END_MARKER, markerEnd + 3);
+      if (endIdx === -1) {
+        pendingBufferRef.current = buffer.slice(markerIdx);
+        return;
+      }
+
+      const payload = buffer.slice(markerEnd + 3, endIdx);
+      handleToolEvent(type, payload);
+      scan = endIdx + END_MARKER.length;
+      if (scan >= buffer.length) {
+        pendingBufferRef.current = "";
+        return;
+      }
     }
+  };
+
+  // Dispatch the final segment left in the buffer (stream ended mid-payload).
+  const drainBuffer = () => {
+    let buffer = pendingBufferRef.current;
+    pendingBufferRef.current = "";
+    if (!buffer) return;
+    if (!buffer.includes("<<<")) {
+      appendText(buffer);
+      return;
+    }
+    // No END marker yet: report a friendly error for the truncated tool payload.
+    appendText("I started preparing a search but the response was interrupted.");
+    setChatError({ kind: "interrupted" });
   };
 
   const handleStop = () => {
@@ -132,13 +195,13 @@ export function Chat() {
     const updated = [...messages, userMessage];
     setMessages(updated);
     setLoading(true);
-    setStreamingContent("");
+    clearText();
     setToolState(null);
     setChatError(null);
     setPartial(null);
     setManualScroll(false);
+    pendingBufferRef.current = "";
 
-    const accRaw: string[] = [];
     abortRef.current = new AbortController();
 
     try {
@@ -179,34 +242,39 @@ export function Chat() {
         const { done, value } = chunk;
         if (done) break;
         const text = decoder.decode(value, { stream: true });
-        accRaw.push(text);
         parseIncoming(text);
       }
 
-      const finalText = cleanText(accRaw.join(""));
-      if (finalText) {
-        setMessages((prev) => [...prev, { role: "assistant", content: finalText }]);
+      // Stream finished cleanly: drain any leftover segment and commit remaining text.
+      drainBuffer();
+      if (streamingRef.current.trim()) {
+        flushPendingText();
       }
     } catch (e: unknown) {
       if (e instanceof ChatRequestError) {
-        if (e.error.kind === "network" && accRaw.length === 0) {
+        if (e.error.kind === "network" && !streamingRef.current.trim() && !pendingBufferRef.current) {
           setChatError({ kind: "network" });
         } else if (e.error.kind === "network") {
-          setPartial(cleanText(accRaw.join("")) || null);
+          const text = streamingRef.current.trim();
+          clearText();
+          if (text) setPartial(text);
           setChatError({ kind: "interrupted" });
         } else {
           setChatError(e.error);
         }
       } else if (e instanceof Error && e.name === "AbortError") {
-        const text = cleanText(accRaw.join(""));
+        const text = streamingRef.current.trim();
+        clearText();
         if (text) setMessages((prev) => [...prev, { role: "assistant", content: text }]);
       } else {
-        const text = cleanText(accRaw.join(""));
+        const text = streamingRef.current.trim();
+        clearText();
         if (text) setPartial(text);
         setChatError({ kind: "unknown" });
       }
     } finally {
-      setStreamingContent("");
+      clearText();
+      pendingBufferRef.current = "";
       setToolState(null);
       setLoading(false);
       abortRef.current = null;

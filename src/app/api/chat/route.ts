@@ -15,7 +15,9 @@ Your role:
 - Convert recipe serving sizes
 - Suggest meal plans
 
-Whenever a user mentions ingredients they have on hand and wants to know what to cook, ALWAYS use the searchRecipes tool instead of inventing recipes. After the tool returns results, summarize the best matches briefly and mention the match percentages. If the tool returns an empty list, tell the user no recipes matched and suggest alternatives.
+Whenever a user mentions ingredients they have on hand and wants to know what to cook, ALWAYS use the searchRecipes tool first instead of inventing recipes. After the tool returns results, keep your reply short. Do NOT repeat the full list of recipes with names, images, scores, or markdown links — the matched recipes are displayed to the user as recipe cards automatically. Instead, in 1–3 sentences, name the top 1–2 recipes and note anything worth highlighting (e.g. quickest option, highest rating).
+
+If the tool returns no recipes, still be helpful and think outside the box: briefly mention nothing in the CookMate library matched, then provide a complete recipe yourself from your own cooking knowledge — including the list of ingredients (with quantities) and step-by-step instructions, plus servings and cooking time. Format it with clear numbered steps. NEVER invent fake match scores or pretend your own recipe is from CookMate; be honest that it is a classic home recipe.
 
 Keep responses concise, practical, and focused on cooking. If asked about non-food topics, politely redirect back to cooking.`;
 
@@ -47,6 +49,7 @@ const MARKERS = {
   TOOL_RUN: "<<<TOOL_RUN>>>",
   TOOL_RESULT: "<<<TOOL_RESULT>>>",
   TOOL_ERROR: "<<<TOOL_ERROR>>>",
+  END: "<<<END>>>",
 };
 
 interface ToolCallAccumulator {
@@ -126,7 +129,7 @@ async function streamChat(
         if (tc.function?.name) toolCalls[idx].name = tc.function.name;
         if (tc.function?.arguments) {
           toolCalls[idx].arguments += tc.function.arguments;
-          controller.enqueue(encoder.encode(`${MARKERS.TOOL_STREAM}${toolCalls[idx].arguments}`));
+          controller.enqueue(encoder.encode(`${MARKERS.TOOL_STREAM}${toolCalls[idx].arguments}${MARKERS.END}`));
         }
       }
     }
@@ -208,9 +211,9 @@ export async function POST(req: NextRequest) {
               let result: unknown;
               try {
                 const parsed = searchRecipesSchema.parse(JSON.parse(call.arguments));
-                controller.enqueue(encoder.encode(`${MARKERS.TOOL_RUN}${JSON.stringify(parsed)}`));
+                controller.enqueue(encoder.encode(`${MARKERS.TOOL_RUN}${JSON.stringify(parsed)}${MARKERS.END}`));
                 const data = searchRecipes(parsed);
-                controller.enqueue(encoder.encode(`${MARKERS.TOOL_RESULT}${JSON.stringify(data)}`));
+                controller.enqueue(encoder.encode(`${MARKERS.TOOL_RESULT}${JSON.stringify(data)}${MARKERS.END}`));
                 result = { ok: true, data };
               } catch (e) {
                 const issues =
@@ -220,7 +223,7 @@ export async function POST(req: NextRequest) {
                 const errMsg =
                   issues ||
                   (e instanceof Error ? e.message : "Invalid tool input. Please try again.");
-                controller.enqueue(encoder.encode(`${MARKERS.TOOL_ERROR}${JSON.stringify({ message: errMsg })}`));
+                controller.enqueue(encoder.encode(`${MARKERS.TOOL_ERROR}${JSON.stringify({ message: errMsg })}${MARKERS.END}`));
                 result = { ok: false, error: errMsg };
               }
 

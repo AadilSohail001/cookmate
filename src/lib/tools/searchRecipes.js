@@ -22,6 +22,9 @@ function stem(word) {
   return word.replace(/ies$/, "y").replace(/oes$/, "o").replace(/(es|s)$/, "");
 }
 
+const MIN_SCORE = 30;
+const MAX_RESULTS = 8;
+
 export function searchRecipes(input) {
   const { ingredients } = searchRecipesSchema.parse(input);
 
@@ -53,7 +56,16 @@ export function searchRecipes(input) {
 
       if (matched === 0) return null;
 
-      const matchScore = Math.round((matched / query.length) * 100);
+      // Two-way coverage: how many of the user's ingredients are used AND
+      // how much of the recipe those ingredients cover. A recipe that only
+      // happens to share one garnish ingredient scores low and is dropped.
+      const userCoverage = matched / query.length;
+      const recipeCoverage = matched / recipe.ingredients.length;
+      const matchScore = Math.round(
+        50 * userCoverage + 50 * recipeCoverage
+      );
+
+      if (matchScore < MIN_SCORE) return null;
 
       return {
         id: recipe.id,
@@ -69,7 +81,7 @@ export function searchRecipes(input) {
     })
     .filter(Boolean)
     .sort((a, b) => b.matchScore - a.matchScore || a.cookingTime - b.cookingTime)
-    .slice(0, 8);
+    .slice(0, MAX_RESULTS);
 
   return { recipes: matches, query: ingredients };
 }
